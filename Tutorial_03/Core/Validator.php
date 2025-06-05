@@ -1,4 +1,5 @@
 <?php
+    namespace Core;
     class Validator {
         // Pure function (Just serve purpose without using external data/reference)
         // Use static for pure function
