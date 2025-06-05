@@ -4,15 +4,16 @@
 
 <main>
     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <?php foreach($notes as $note): ?>
-            <ul>
+         <ul class="pb-5">
+            <?php foreach($notes as $note): ?>
                 <li>
                     <a href="/note?id=<?= $note['id'] ?>" class="text-2xl text-blue-500 underline">
                         <?= $note['note']; ?>
                     </a>
                 </li>
-            </ul>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
+        </ul>
+        <a href="/note-create" class="text-xl text-green-700">Create Note</a>
     </div>
 </main>
 
