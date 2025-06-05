@@ -2,6 +2,8 @@
     $heading = "Notes";
     $config = require "config.php";
     $db = new Database($config['database']);
-    $query = "SELECT * FROM notes";
-    $notes = $db->query($query)->fetchAll();
+
+    $currentUserId = 1;
+    $query = "SELECT * FROM notes WHERE user_id = :user";
+    $notes = $db->query($query, ['user' => $currentUserId])->fetchAll();
     require("views/notes.view.php");
