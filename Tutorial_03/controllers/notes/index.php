@@ -7,4 +7,4 @@
     $query = "SELECT * FROM notes WHERE user_id = :user";
     $notes = $db->query($query, ['user' => $currentUserId])->get();
 
-    require("views/notes.view.php");
+    require("views/notes/index.view.php");
