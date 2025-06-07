@@ -5,7 +5,7 @@
     $db = new Database($config['database']);
 
     $currentUserId = 1;
-
+    
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $note = $db->query("SELECT id, user_id FROM notes WHERE id = :id", [
             'id' => $_POST['note_id']

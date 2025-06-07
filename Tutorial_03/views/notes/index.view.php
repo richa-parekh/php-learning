@@ -13,7 +13,7 @@
                 </li>
             <?php endforeach; ?>
         </ul>
-        <a href="/note-create" class="text-xl text-green-700">Create Note</a>
+        <a href="/notes/create" class="text-xl text-green-700">Create Note</a>
     </div>
 </main>
 
