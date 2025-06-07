@@ -9,8 +9,8 @@ class Router
     public function route($uri, $method)
     { 
         foreach ($this->routes as $route) {
-            echo "<pre>";
-                print_r($route['uri']."=>" .$route['method'] ."=>" .$uri."=>" .$method);echo "</pre>";
+            /* echo "<pre>";
+                print_r($route['uri']."=>" .$route['method'] ."=>" .$uri."=>" .$method);echo "</pre>"; */
             if ($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
                 
                 return require base_path($route['controller']);

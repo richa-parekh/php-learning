@@ -7,7 +7,7 @@
         <a href="/notes" class="text-blue-700 underline">Go back</a>
     </div>
 
-    <form method="POST" class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+    <form method="POST" action="/notes" class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <label for="note" class="block mb-2 text-lg font-medium text-gray-900 text-grey-600">Your note</label>
         <textarea id="note" name="note" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"><?= $_POST['note'] ?? '' ?></textarea>
         <p class="text-red-500 text-sm mt-2"><?= $errors['note'] ?? '' ?></p>
