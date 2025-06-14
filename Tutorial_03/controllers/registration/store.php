@@ -24,17 +24,17 @@ if (!empty($errors)) {
 }
 
 $db = App::resolve(Database::class);
-$user = $db->query("select * from users where email = :email",[
+$user = $db->query("select * from users where email = :email", [
     'email' => $email
 ])->find();
 
-if($user){
+if ($user) {
     header("location: /");
     exit;
-}else{
+} else {
     $db->query("INSERT INTO users (email, password) VALUES (:email, :password)", [
         'email' => $email,
-        'password' => $password
+        'password' => password_hash($password, PASSWORD_DEFAULT)
     ]);
 
     $_SESSION['user'] = [
