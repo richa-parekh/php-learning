@@ -1,35 +1,59 @@
 <?php
 
-    use Core\Responses;
-    function dd($value){
-        echo "<pre>";
-        var_dump($value);
-        echo "</pre>";
-        die();
-    }
+use Core\Responses;
 
-    function urlIs($value)  {
-        return $_SERVER['REQUEST_URI'] === $value;
-    }
+function dd($value)
+{
+    echo "<pre>";
+    var_dump($value);
+    echo "</pre>";
+    die();
+}
 
-    function authorize($condition, $status = Responses::FORBIDDEN){
-        if(!$condition){
-            abort($status);
-        }
-    }
+function urlIs($value)
+{
+    return $_SERVER['REQUEST_URI'] === $value;
+}
 
-    function base_path($path){
-        return BASE_PATH . $path;
+function authorize($condition, $status = Responses::FORBIDDEN)
+{
+    if (!$condition) {
+        abort($status);
     }
+}
 
-    function view($path, $attributes = []){
-        extract($attributes);
-        require base_path('views/'. $path . ".view.php");
-    }
+function base_path($path)
+{
+    return BASE_PATH . $path;
+}
 
-    function abort($code = 404)
-    {
-        http_response_code($code);
-        require base_path("views/{$code}.php");
-        die();
-    }
+function view($path, $attributes = [])
+{
+    extract($attributes);
+    require base_path('views/' . $path . ".view.php");
+}
+
+function abort($code = 404)
+{
+    http_response_code($code);
+    require base_path("views/{$code}.php");
+    die();
+}
+
+function login($user)
+{
+    $_SESSION['user'] = [
+        'email' => $user['email']
+    ];
+
+    session_regenerate_id(true);
+}
+
+function logout()
+{
+    $_SESSION = [];
+    session_destroy();
+
+    $params = session_get_cookie_params();
+    setcookie('PHPSESSID', '', time() - 3600, $params['path'], $params['domain'], $params['secure'], $params['httponly']);
+}
