@@ -2,48 +2,58 @@
 
 namespace Core;
 
+use Core\Middleware\Middleware;
+
 class Router
 {
     protected $routes = [];
 
     public function route($uri, $method)
-    { 
+    {
         foreach ($this->routes as $route) {
-            /* echo "<pre>";
-                print_r($route['uri']."=>" .$route['method'] ."=>" .$uri."=>" .$method);echo "</pre>"; */
             if ($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
-                
+               Middleware::resolve($route['middleware']);
+
                 return require base_path($route['controller']);
             }
         }
         abort();
     }
-    public function add($method, $uri, $controller){
+    public function add($method, $uri, $controller)
+    {
         $this->routes[] = [
             'uri' => $uri,
             'controller' => $controller,
-            'method' => $method
+            'method' => $method,
+            'middleware' => NULL
         ];
+        return $this;
+    }
+
+    public function only($key)
+    {
+        $this->routes[array_key_last($this->routes)]['middleware'] = $key;
+        return $this;
     }
     public function get($uri, $controller)
     {
-        $this->add('GET',$uri, $controller);
+        return $this->add('GET', $uri, $controller);
     }
     public function post($uri, $controller)
     {
-        $this->add('POST',$uri, $controller);
+        return $this->add('POST', $uri, $controller);
     }
     public function delete($uri, $controller)
     {
-        $this->add('DELETE',$uri, $controller);
+        return $this->add('DELETE', $uri, $controller);
     }
     public function put($uri, $controller)
     {
-        $this->add('PUT',$uri, $controller);
+        return $this->add('PUT', $uri, $controller);
     }
 
     public function patch($uri, $controller)
     {
-        $this->add('PATCH',$uri, $controller);
+        return $this->add('PATCH', $uri, $controller);
     }
 }
