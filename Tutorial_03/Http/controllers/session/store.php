@@ -2,7 +2,7 @@
 
 use Core\App;
 use Core\Database;
-use Core\Validator;
+use Http\Forms\LoginForm;
 
 $errors = [];
 
@@ -10,21 +10,14 @@ $db = App::resolve(Database::class);
 
 $email = $_POST['email'];
 $password = $_POST['password'];
-if (!Validator::email($email)) {
-    $errors['email'] = "Please enter valid email.";
-}
 
-if (!Validator::string($password)) {
-    $errors['password'] = "Please enter valid password.";
-}
-
-if (!empty($errors)) {
+$form = new LoginForm();
+if (!$form->validate($email, $password)) {
     return view('/session/create', [
         'heading' => "Login",
-        'errors' => $errors
+        'errors' => $form->errors()
     ]);
 }
-
 
 $user = $db->query("SELECT * FROM users WHERE email = :email", [
     'email' => $email
@@ -39,6 +32,6 @@ if ($user) {
 return view('/session/create', [
     'heading' => "Login",
     'errors' => [
-        'email' => "No matching account found for email address and password"
+        'auth' => "No matching account found for email address and password"
     ]
 ]);
