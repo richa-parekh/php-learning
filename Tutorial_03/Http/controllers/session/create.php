@@ -1,6 +1,8 @@
 <?php
 
+use Core\Session;
+
 view("session/create", [
     'heading' => "Login",
-    'errors' => ''
+    'errors' => Session::get('errors')
 ]);
