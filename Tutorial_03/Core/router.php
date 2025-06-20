@@ -56,4 +56,8 @@ class Router
     {
         return $this->add('PATCH', $uri, $controller);
     }
+
+    public function previousUrl(){
+        return $_SERVER['HTTP_REFERER'];
+    }
 }
