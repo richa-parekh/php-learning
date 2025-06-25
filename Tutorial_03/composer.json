@@ -1,0 +1,16 @@
+{
+    "name": "richa/tutorial_03",
+    "authors": [
+        {
+            "name": "Richa",
+            "email": "richaparekh.work@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Core\\": "Core/",
+            "Http\\": "Http/"
+        }
+    }
+}
